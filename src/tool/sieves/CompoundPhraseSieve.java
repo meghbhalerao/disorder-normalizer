@@ -17,11 +17,14 @@ public class CompoundPhraseSieve extends Sieve {
     
     public static String applyNCBI(String name) {
         String cui = apply(name);
+        // cui is concept-unique-id. Below condition returns cui if name does not contain "and" or "or" OR cui is a null string
         if (!cui.equals("") || (!name.contains(" and ") && !name.contains(" or "))) 
             return cui;
-        
+        // get the compound word which is present in the string
         String compoundWord = name.contains(" and ") ? "and" : "or";
+        // split the string according to the any white spaces and get an array of strings.
         String[] nameTokens = name.split("\\s+");
+        // get the index of the compound word, word can be either "and" or "or"
         int index = Util.getTokenIndex(nameTokens, compoundWord);
         
         if (index == 1) {
